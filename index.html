@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVRATRI 2026 - Global Pass Management Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 max-w-6xl mx-auto">
+
+    <!-- DIGITAL PASS FULL PAGE VIEW -->
+    <div id="digital-pass-view" class="hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center p-6 text-slate-900 overflow-y-auto">
+        <div class="max-w-md w-full bg-white border-2 border-orange-500 rounded-3xl p-8 shadow-2xl text-center space-y-6 my-auto">
+            <div class="border-b border-slate-100 pb-4 space-y-1">
+                <span class="inline-block bg-orange-100 text-orange-600 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Official Entry Pass</span>
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight mt-2">NAVRATRI EVENT 2026</h1>
+                <p class="text-xs text-slate-500 font-semibold">Global Garba & Dandiya Celebrations</p>
+            </div>
+
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left space-y-3 text-sm">
+                <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Attendee Name</span>
+                    <p id="pass-view-name" class="text-lg font-black text-slate-900">Krishna Sharma</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200/60">
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block">Phone</span>
+                        <p id="pass-view-phone" class="font-bold text-slate-800 text-xs">+919358665525</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase block">Booking ID</span>
+                        <p id="pass-view-id" class="font-bold text-orange-600 text-xs">#BK-1001</p>
+                    </div>
+                </div>
+                <div class="pt-1 border-t border-slate-200/60">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase block">Event Title</span>
+                    <p id="pass-view-event" class="font-bold text-slate-900 text-xs">Royal Garba Night 2026</p>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <div class="bg-white p-4 rounded-2xl border-2 border-slate-200 inline-block shadow-inner">
+                    <img id="pass-view-qr" src="" alt="Gate QR Pass" class="w-48 h-48 mx-auto rounded-lg">
+                </div>
+                <p class="text-xs font-extrabold text-emerald-600 flex items-center justify-center gap-1">
+                    <span>✅</span> Scan this QR Code at the Main Gate
+                </p>
+            </div>
+
+            <button onclick="closePassView()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-md">
+                ⬅️ Return to Portal
+            </button>
+        </div>
+    </div>
+
+    <!-- AUTH SLIDE (LOGIN / SIGNUP) -->
+    <div id="auth-slide" class="max-w-md mx-auto my-auto w-full bg-white border border-slate-200 p-8 rounded-3xl shadow-xl space-y-6">
+        <div class="text-center">
+            <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-2xl mx-auto flex items-center justify-center font-bold text-2xl mb-3 shadow-inner">🪔</div>
+            <h1 class="text-2xl font-extrabold text-slate-900">NAVRATRI 2026 Portal</h1>
+            <p class="text-sm text-slate-500 mt-1">Enter details to access global pass portal.</p>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">FULL NAME</label>
+                <input type="text" id="username" value="Krishna Sharma" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-base text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-600 uppercase mb-1">WHATSAPP PHONE</label>
+                <input type="text" id="phone" value="+919358665525" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-orange-500 font-medium">
+            </div>
+            <button onclick="registerUser()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl text-base shadow-lg shadow-orange-500/25 transition-all">
+                Authenticate & Open Portal ➔
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN PORTAL WITH LEFT SIDEBAR LAYOUT -->
+    <div id="portal-slide" class="hidden flex-1 flex flex-col md:flex-row gap-6">
+
+        <!-- LEFT SIDEBAR -->
+        <aside class="w-full md:w-64 bg-white border border-slate-200 p-5 rounded-3xl shadow-sm flex flex-col justify-between shrink-0">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                    <span class="w-10 h-10 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center font-bold text-xl shadow-inner">🪔</span>
+                    <div>
+                        <h2 class="font-extrabold text-base text-slate-900 leading-tight">NAVRATRI 2026</h2>
+                        <span class="text-xs text-orange-600 font-bold uppercase tracking-wider">Pass Portal</span>
+                    </div>
+                </div>
+
+                <nav class="flex flex-col gap-2 font-semibold text-sm">
+                    <button onclick="switchTab('dashboard')" id="nav-dash" class="w-full text-left px-4 py-3 rounded-2xl bg-orange-600 text-white font-bold shadow flex items-center gap-2">
+                        <span>📊</span> Dashboard
+                    </button>
+                    <button onclick="switchTab('tickets')" id="nav-tick" class="w-full text-left px-4 py-3 rounded-2xl text-slate-600 hover:bg-slate-100 font-medium flex items-center gap-2">
+                        <span>🎟️</span> Book Passes
+                    </button>
+                    <button onclick="switchTab('attendees')" id="nav-attend" class="w-full text-left px-4 py-3 rounded-2xl text-slate-600 hover:bg-slate-100 font-medium flex items-center gap-2">
+                        <span>👥</span> Attendees
+                    </button>
+                    <button onclick="switchTab('profile')" id="nav-prof" class="w-full text-left px-4 py-3 rounded-2xl text-slate-600 hover:bg-slate-100 font-medium flex items-center gap-2">
+                        <span>👤</span> Profile
+                    </button>
+                </nav>
+            </div>
+
+            <div class="pt-6 border-t border-slate-100">
+                <button onclick="logout()" class="w-full text-left px-4 py-2.5 rounded-xl text-red-600 hover:bg-red-50 font-bold text-sm flex items-center gap-2">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- RIGHT CONTENT AREA -->
+        <main class="flex-1 space-y-6">
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="tab-dashboard" class="tab-content active space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
+                        <span class="text-sm font-semibold text-slate-500">Total Bookings</span>
+                        <h3 id="stat-total-bookings" class="text-4xl font-black text-orange-600 mt-2">0</h3>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
+                        <span class="text-sm font-semibold text-slate-500">Passes Secured</span>
+                        <h3 id="stat-total-passes" class="text-4xl font-black text-emerald-600 mt-2">0</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
+                    <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide mb-4">Recent Bookings</h3>
+                    <div id="dashboard-bookings-list" class="space-y-3 text-sm">
+                        <p class="text-slate-400 text-center py-8 text-base">No passes booked yet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: BOOK TICKETS -->
+            <div id="tab-tickets" class="tab-content space-y-4">
+                <div class="flex justify-between items-center px-1">
+                    <h2 class="text-lg font-extrabold text-slate-900">Available Garba Events</h2>
+                    <button onclick="loadEvents()" class="text-sm text-orange-600 font-bold bg-orange-50 px-4 py-2 rounded-xl border border-orange-200 hover:bg-orange-100">Refresh</button>
+                </div>
+                <div id="events-list" class="space-y-4"></div>
+            </div>
+
+            <!-- TAB 3: ATTENDEES -->
+            <div id="tab-attendees" class="tab-content space-y-4">
+                <h2 class="text-lg font-extrabold text-slate-900 px-1">Attendees Directory</h2>
+                <div id="attendees-list" class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm text-sm space-y-3"></div>
+            </div>
+
+            <!-- TAB 4: PROFILE -->
+            <div id="tab-profile" class="tab-content space-y-4">
+                <h2 class="text-lg font-extrabold text-slate-900 px-1">Profile Details</h2>
+                <div class="bg-white border border-slate-200 p-6 rounded-3xl shadow-sm space-y-4 text-sm">
+                    <div>
+                        <label class="block font-bold text-slate-500 uppercase mb-1 text-xs">FULL NAME</label>
+                        <input type="text" id="profile-name" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-base">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-500 uppercase mb-1 text-xs">WHATSAPP PHONE</label>
+                        <input type="text" id="profile-phone" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold text-base">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCESS QR MODAL -->
+            <div id="booking-success-modal" class="hidden bg-white border-2 border-emerald-500 p-6 rounded-3xl shadow-xl text-center space-y-4">
+                <h3 class="text-lg font-black text-emerald-600">🎉 Booking Confirmed Successfully!</h3>
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 inline-block shadow-inner">
+                    <img id="qr-code-img" src="" alt="Gate QR Code" class="w-40 h-40 mx-auto rounded-lg cursor-pointer" onclick="openPassViewDirect()">
+                    <p id="pass-details" class="text-sm font-bold text-slate-800 mt-2"></p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="openPassViewDirect()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-3 rounded-xl text-sm shadow transition-all">
+                        📄 View Full White Pass Page
+                    </button>
+                    <a id="whatsapp-direct-btn" href="#" target="_blank" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md transition-all">
+                        🟢 Dispatch Digital Pass Link to WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="py-4 text-center text-xs text-slate-400 font-medium mt-auto">
+        NAVRATRI 2026 Smart Event Platform
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC EMBEDDED DIRECTLY FOR ZERO GLITCHES -->
+    <script>
+        let currentUserName = "Krishna Sharma";
+        let currentUserPhone = "+919358665525";
+        let userBookingsHistory = [];
+        let latestBooking = null;
+
+        const staticEvents = [
+            { id: 1, title: "Royal Garba Night 2026", venue: "Dome Arena, Mumbai", ticket_price: 1500, currency: "INR" },
+            { id: 2, title: "Dandiya Raas Dhamaka", venue: "GFG Grounds, Ahmedabad", ticket_price: 1200, currency: "INR" },
+            { id: 3, title: "International Garba Fest", venue: "Exhibition Centre, Dubai", ticket_price: 200, currency: "AED" },
+            { id: 4, title: "Global Dandiya Night", venue: "Santa Clara Center, USA", ticket_price: 50, currency: "USD" }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if(urlParams.get('view_pass') === 'true') {
+                const name = urlParams.get('name') || "Krishna Sharma";
+                const phone = urlParams.get('phone') || "+919358665525";
+                const event = urlParams.get('event') || "Royal Garba Night 2026";
+                const id = urlParams.get('id') || "BK-1001";
+                const qr = urlParams.get('qr') || `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=NAVRATRI-TICKET-${id}`;
+
+                showPassView(name, phone, event, id, qr);
+            }
+        });
+
+        function registerUser() {
+            const nameInput = document.getElementById('username');
+            const phoneInput = document.getElementById('phone');
+            
+            const name = nameInput ? nameInput.value.trim() : "Krishna Sharma";
+            const phone = phoneInput ? phoneInput.value.trim() : "+919358665525";
+
+            if(!name || !phone) {
+                alert("Please fill name & phone!");
+                return;
+            }
+
+            currentUserName = name;
+            currentUserPhone = phone;
+            
+            const profileName = document.getElementById('profile-name');
+            const profilePhone = document.getElementById('profile-phone');
+            if(profileName) profileName.value = name;
+            if(profilePhone) profilePhone.value = phone;
+
+            const authSlide = document.getElementById('auth-slide');
+            const portalSlide = document.getElementById('portal-slide');
+            
+            if(authSlide) authSlide.classList.add('hidden');
+            if(portalSlide) portalSlide.classList.remove('hidden');
+
+            switchTab('dashboard');
+            loadEvents();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            ['nav-dash', 'nav-tick', 'nav-attend', 'nav-prof'].forEach(id => {
+                const btn = document.getElementById(id);
+                if(btn) { 
+                    btn.classList.remove('bg-orange-600', 'text-white', 'font-bold', 'shadow'); 
+                    btn.classList.add('text-slate-600', 'font-medium'); 
+                }
+            });
+
+            if(tabName === 'dashboard') {
+                document.getElementById('tab-dashboard').classList.add('active');
+                document.getElementById('nav-dash').classList.add('bg-orange-600', 'text-white', 'font-bold', 'shadow');
+                document.getElementById('nav-dash').classList.remove('text-slate-600', 'font-medium');
+            } else if(tabName === 'tickets') {
+                document.getElementById('tab-tickets').classList.add('active');
+                document.getElementById('nav-tick').classList.add('bg-orange-600', 'text-white', 'font-bold', 'shadow');
+                document.getElementById('nav-tick').classList.remove('text-slate-600', 'font-medium');
+            } else if(tabName === 'attendees') {
+                document.getElementById('tab-attendees').classList.add('active');
+                document.getElementById('nav-attend').classList.add('bg-orange-600', 'text-white', 'font-bold', 'shadow');
+                document.getElementById('nav-attend').classList.remove('text-slate-600', 'font-medium');
+                loadAttendees();
+            } else if(tabName === 'profile') {
+                document.getElementById('tab-profile').classList.add('active');
+                document.getElementById('nav-prof').classList.add('bg-orange-600', 'text-white', 'font-bold', 'shadow');
+                document.getElementById('nav-prof').classList.remove('text-slate-600', 'font-medium');
+            }
+        }
+
+        function loadEvents() {
+            const container = document.getElementById('events-list');
+            if(!container) return;
+            container.innerHTML = "";
+
+            staticEvents.forEach(event => {
+                container.innerHTML += `
+                    <div class="bg-white border border-slate-200 p-5 rounded-3xl flex justify-between items-center text-sm shadow-sm hover:border-orange-300 transition-all">
+                        <div>
+                            <h4 class="font-extrabold text-slate-900 text-base">${event.title}</h4>
+                            <p class="text-slate-500 text-xs mt-1">📍 ${event.venue}</p>
+                            <p class="font-black text-orange-600 text-base mt-2">${event.currency} ${event.ticket_price}</p>
+                        </div>
+                        <button onclick="bookTicket(${event.id}, '${event.title}', ${event.ticket_price}, '${event.currency}')" class="bg-orange-600 hover:bg-orange-700 text-white font-bold px-5 py-3 rounded-2xl text-sm shadow transition-all">Book Pass</button>
+                    </div>
+                `;
+            });
+        }
+
+        function bookTicket(eventId, eventTitle, price, currency) {
+            const bookingId = Math.floor(Math.random() * 9000) + 1000;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=NAVRATRI-TICKET-BK-${bookingId}`;
+
+            latestBooking = {
+                id: `BK-${bookingId}`,
+                title: eventTitle,
+                name: currentUserName,
+                phone: currentUserPhone,
+                price: `${currency} ${price}`,
+                qr: qrUrl
+            };
+
+            userBookingsHistory.unshift({ id: bookingId, title: eventTitle, qty: 1, total: price, currency: currency, date: new Date().toLocaleTimeString() });
+
+            document.getElementById('stat-total-bookings').innerText = userBookingsHistory.length;
+            document.getElementById('stat-total-passes').innerText = userBookingsHistory.length;
+
+            const listContainer = document.getElementById('dashboard-bookings-list');
+            if(listContainer) {
+                listContainer.innerHTML = "";
+                userBookingsHistory.forEach(b => {
+                    listContainer.innerHTML += `
+                        <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 flex justify-between items-center text-sm">
+                            <span class="font-bold text-slate-800">#${b.id} - ${b.title}</span>
+                            <span class="text-orange-600 font-extrabold text-base">${b.currency} ${b.total}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('booking-success-modal').classList.remove('hidden');
+            document.getElementById('qr-code-img').src = qrUrl;
+            document.getElementById('pass-details').innerText = `Booking #BK-${bookingId} | Pass Verified`;
+
+            const waText = encodeURIComponent(`🪔 NAVRATRI EVENT 2026 PASS 🪔\n\n👤 Name: ${currentUserName}\n📞 Phone: ${currentUserPhone}\n🎟️ Event: ${eventTitle}\n🔖 Booking ID: #BK-${bookingId}\n\n📲 Click below to open Gate Entry QR Code:\n${qrUrl}`);
+            
+            document.getElementById('whatsapp-direct-btn').href = `https://wa.me/${currentUserPhone.replace('+', '')}?text=${waText}`;
+
+            switchTab('dashboard');
+        }
+
+        function openPassViewDirect() {
+            if(latestBooking) {
+                showPassView(latestBooking.name, latestBooking.phone, latestBooking.title, latestBooking.id, latestBooking.qr);
+            }
+        }
+
+        function showPassView(name, phone, eventTitle, bookingId, qrUrl) {
+            document.getElementById('pass-view-name').innerText = name;
+            document.getElementById('pass-view-phone').innerText = phone;
+            document.getElementById('pass-view-event').innerText = eventTitle;
+            document.getElementById('pass-view-id').innerText = `#${bookingId}`;
+            document.getElementById('pass-view-qr').src = qrUrl;
+
+            document.getElementById('digital-pass-view').classList.remove('hidden');
+        }
+
+        function closePassView() {
+            document.getElementById('digital-pass-view').classList.add('hidden');
+        }
+
+        function loadAttendees() {
+            const container = document.getElementById('attendees-list');
+            if(!container) return;
+            container.innerHTML = `
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-slate-900 text-base">${currentUserName}</p>
+                        <p class="text-slate-500 text-xs">${currentUserPhone}</p>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider">Confirmed</span>
+                </div>
+            `;
+        }
+
+        function logout() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
